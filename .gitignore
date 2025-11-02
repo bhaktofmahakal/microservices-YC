@@ -1,0 +1,10 @@
+﻿*.log
+*.tar
+kind.exe
+.DS_Store
+__pycache__/
+*.pyc
+.env
+*.swp
+*.swo
+*~

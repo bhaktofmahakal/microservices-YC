@@ -1,0 +1,189 @@
+{
+  "dashboard": {
+    "title": "DrDroid - Microservices Observability",
+    "tags": ["drdroid", "observability", "custom-metrics", "kubernetes"],
+    "timezone": "browser",
+    "schemaVersion": 39,
+    "version": 0,
+    "refresh": "30s",
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "Product Catalog - Resident Memory (Custom Metric)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "process_resident_memory_bytes{job=\"productcatalogservice-metrics\"}",
+            "legendFormat": "Memory (Bytes)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 10},
+            "unit": "bytes",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "list", "placement": "bottom"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 2,
+        "title": "Product Catalog - Virtual Memory (Custom Metric)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "process_virtual_memory_bytes{job=\"productcatalogservice-metrics\"}",
+            "legendFormat": "Virtual Memory"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 10},
+            "unit": "bytes",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "list", "placement": "bottom"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 3,
+        "title": "Product Catalog - Active Go Routines (Custom Metric)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "go_goroutines{job=\"productcatalogservice-metrics\"}",
+            "legendFormat": "Goroutines"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 10},
+            "unit": "short",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "list", "placement": "bottom"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 4,
+        "title": "Product Catalog - GC 99th Percentile Pause (Custom Metric)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "go_gc_duration_seconds{job=\"productcatalogservice-metrics\",quantile=\"0.99\"} * 1000",
+            "legendFormat": "GC Pause (p99)"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 10},
+            "unit": "ms",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "list", "placement": "bottom"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 5,
+        "title": "Kubernetes - All Pods CPU Usage Rate",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "rate(container_cpu_usage_seconds_total{namespace=\"hipster-shop\"}[5m])",
+            "legendFormat": "{{pod_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 5},
+            "unit": "percentunit",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "table", "placement": "right"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 6,
+        "title": "Kubernetes - All Pods Memory Usage",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "datasource": "Prometheus",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "container_memory_usage_bytes{namespace=\"hipster-shop\"}",
+            "legendFormat": "{{pod_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {"drawStyle": "line", "fillOpacity": 5},
+            "unit": "bytes",
+            "color": {"mode": "palette-classic"}
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "table", "placement": "right"},
+          "tooltip": {"mode": "multi"}
+        }
+      },
+      {
+        "id": 7,
+        "title": "Application Logs - All Microservices",
+        "type": "logs",
+        "gridPos": {"h": 12, "w": 24, "x": 0, "y": 24},
+        "datasource": "Loki",
+        "targets": [
+          {
+            "refId": "A",
+            "expr": "{namespace=\"hipster-shop\"}",
+            "legendFormat": ""
+          }
+        ],
+        "options": {
+          "showTime": true,
+          "dedupStrategy": "none",
+          "wrapLogMessage": false
+        }
+      }
+    ],
+    "templating": {
+      "list": []
+    }
+  },
+  "overwrite": true
+}
