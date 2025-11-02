@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: productcatalogservice-monitor
+  namespace: hipster-shop
+  labels:
+    release: kps
+spec:
+  selector:
+    matchLabels:
+      app: productcatalogservice
+  endpoints:
+  - port: metrics
+    interval: 30s

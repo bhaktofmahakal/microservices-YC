@@ -95,8 +95,8 @@
         "targets": [
           {
             "refId": "A",
-            "expr": "go_gc_duration_seconds{job=\"productcatalogservice-metrics\",quantile=\"0.99\"} * 1000",
-            "legendFormat": "GC Pause (p99)"
+            "expr": "go_gc_duration_seconds{job=\"productcatalogservice-metrics\",quantile=\"1.0\"} * 1000",
+            "legendFormat": "GC Pause (max)"
           }
         ],
         "fieldConfig": {
