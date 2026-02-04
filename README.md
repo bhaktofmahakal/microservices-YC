@@ -1,4 +1,4 @@
-# Microservices Observability Stack - DrDroid Assignment
+# Microservices Observability Stack 
 
 A complete Kubernetes-based observability solution for Google's [microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo) with custom application instrumentation, centralized logging, and real-time dashboards.
 
